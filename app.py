@@ -1,20 +1,23 @@
-import os
-import time
-from collections import namedtuple
-import altair as alt
-import math
-import pop_music_highlighter.extractor as pmhe
-import myller.extractor as me
-
-import numpy as np
-import pandas as pd
-import streamlit as st
-
-"""
-# Thumbnail.me
-Upload a .wav or .mp3 file below and get the respective audio thumbnail and self similarity matrix.
-"""
 try:
+    import os
+    import time
+    from collections import namedtuple
+    import altair as alt
+    import math
+    import pop_music_highlighter.extractor as pmhe
+    import myller.extractor as me
+
+    import numpy as np
+    import pandas as pd
+    import streamlit as st
+
+
+
+
+    """
+    # Thumbnail.me
+    Upload a .wav or .mp3 file below and get the respective audio thumbnail and self similarity matrix.
+    """
     uploaded_file = st.file_uploader("Choose a file", type=['mp3', 'wav'])
     if uploaded_file is not None:
         st.audio(uploaded_file)
