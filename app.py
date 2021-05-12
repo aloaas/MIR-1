@@ -19,7 +19,8 @@ uploaded_file = st.file_uploader("Choose a file", type=['mp3', 'wav'])
 if uploaded_file is not None:
     st.audio(uploaded_file)
     st.write(uploaded_file)
-    file_path = os.path.join("data", uploaded_file.name)
+    file_path = "data" + os.path.sep + uploaded_file.name
+
     with open(file_path, "wb") as f:
         f.write(uploaded_file.getbuffer())
         #path = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_audio.wav'.format(uploaded_file.name)
@@ -41,11 +42,11 @@ if uploaded_file is not None:
     # with open(uploaded_file, "wb") as f:
     #     f.write(uploaded_file.getbuffer())
     # st.success("Saved File")
-
     with st.spinner("Processing once more..."):
-        me.extract(file_path, length=15)
+        me.extract([file_path], length=15)
     st.success("Success Again!")
 
+    st.write(path)
     if os.path.isfile(path):
         st.audio(path)
 

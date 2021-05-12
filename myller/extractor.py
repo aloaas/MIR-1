@@ -345,7 +345,7 @@ def extract(fs, length=None, save_SSM=True, save_thumbnail=True, save_wav=True, 
     """Prints properties of segments with regard to SSM S
 
     Args:
-        fs: filename of the song
+        fs: list of filename of the song
         length: length of the output segment (if None, find best)
         save_SSM: save self similarity matrix (normalized)
         save_thumbnail: saves the range of the thumbnail.
