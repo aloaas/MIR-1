@@ -35,6 +35,8 @@ if uploaded_file is not None:
     path = 'output' + os.path.sep + 'repetition' + os.path.sep + '{}_SSM_norm.npy'.format(uploaded_file.name)
     file_details = {"FileName": uploaded_file.name, "FileType": uploaded_file.type}
     st.write(file_details)
+    st.write(file_path)
+
     # uploaded_file = os.path.join("tempDir", uploaded_file.name)
     # with open(uploaded_file, "wb") as f:
     #     f.write(uploaded_file.getbuffer())
