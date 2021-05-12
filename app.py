@@ -1,14 +1,15 @@
-import os
-import time
-from collections import namedtuple
-import altair as alt
-import math
-#import pop_music_highlighter.extractor as pmhe
-import myller.extractor as me
+try:
+    import os
+    import time
+    from collections import namedtuple
+    import altair as alt
+    import math
+    import pop_music_highlighter.extractor as pmhe
+    import myller.extractor as me
 
-import numpy as np
-import pandas as pd
-import streamlit as st
+    import numpy as np
+    import pandas as pd
+    import streamlit as st
 
 """
 # Thumbnail.me
@@ -45,4 +46,7 @@ if uploaded_file is not None:
     st.success("Success Again!")
 
     if os.path.isfile(path):
-        st.write(path)
+        st.audio(path)
+
+except Exception as e:
+    st.write(e)
