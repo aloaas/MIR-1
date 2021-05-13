@@ -230,9 +230,7 @@ def compute_fitness_scape_plot(S, st):
             S_seg = S[:, start:start+length_minus_one+1]
             D, score = compute_accumulated_score_matrix(S_seg)
             path_family = compute_optimal_path_family(D)
-            st.write("family done")
             fitness, score, score_n, coverage, coverage_n, path_family_length = compute_fitness(path_family, score, N)
-            st.write("fitness done")
             SP_fitness[length_minus_one, start] = fitness
             SP_score[length_minus_one, start] = score
             SP_score_n[length_minus_one, start] = score_n
