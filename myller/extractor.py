@@ -389,7 +389,7 @@ def extract(fs, length=None, save_SSM=True, save_thumbnail=True, save_wav=True, 
 
         # path_family = check_segment(seg, S)
         # print(seg)
-
+        name = fs.name
         if save_SSM:
             np.save(output_path+'{}_SSM_norm.npy'.format(name), SSM)
         st.write("SSM saved")

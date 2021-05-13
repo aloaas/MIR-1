@@ -40,7 +40,7 @@ if length in range(1, 31):
 
         if analyte is not None and analyte == "Attention" or analyte == "Both":
             path_neural_wav = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_audio.wav'.format(uploaded_file.name)
-            with st.spinner("Processing..."):
+            with st.spinner("Processing attention"):
                 pmhe.extract([uploaded_file], length=length, save_score=True, save_thumbnail=True, save_wav=True)
                 st.success("Success!")
 
@@ -54,7 +54,12 @@ if length in range(1, 31):
             path_scape_plot = 'output' + os.path.sep + 'repetition' + os.path.sep + '{}_SP.npy'.format(name)
             st.write(uploaded_file_path)
             st.write(path_ssm_norm)
-            with st.spinner("Processing once more..."):
+            st.write(path_myller_wav)
+            st.write(path_scape_plot)
+
+
+
+            with st.spinner("Processing repetition"):
                 me.extract([uploaded_file_path], length=length, st=st)
             st.success("Success Again!")
 
