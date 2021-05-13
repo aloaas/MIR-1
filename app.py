@@ -26,7 +26,7 @@ if uploaded_file is not None:
     with open(uploaded_file_path, "wb") as f:
         f.write(uploaded_file.getbuffer())
 
-    if analyte == "Neural" or analyte == "Both":
+    if analyte is not None and analyte == "Neural" or analyte == "Both":
         path_neural_wav = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_audio.wav'.format(uploaded_file.name)
         with st.spinner("Processing..."):
             pmhe.extract([uploaded_file], length=length, save_score=True, save_thumbnail=True, save_wav=True)
@@ -35,7 +35,7 @@ if uploaded_file is not None:
         if os.path.isfile(path_neural_wav):
             st.audio(path_neural_wav)
 
-    if analyte == "Myller" or analyte == "Both":
+    if analyte is not None and analyte == "Myller" or analyte == "Both":
 
         path_ssm_norm = 'output' + os.path.sep + 'repetition' + os.path.sep + '{}_SSM_norm.npy'.format(uploaded_file.name)
         path_myller_wav = 'output' + os.path.sep + 'repetition' + os.path.sep + '{}_audio.wav'.format(uploaded_file.name)
