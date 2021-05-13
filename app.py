@@ -51,6 +51,63 @@ if uploaded_file is not None:
         st.success("Success Again!")
 
         st.write(path_ssm_norm)
+        st.write(path_myller_wav)
+
         if os.path.isfile(path_myller_wav):
             st.audio(path_myller_wav)
+
+
+
+
+import numpy as np
+from matplotlib import pyplot as plt
+
+def visualize_scape_plot(SP, Fs=1, ax=None, figsize=(4, 3), title='',
+                         xlabel='Center (seconds)', ylabel='Length (seconds)'):
+    """Visualize scape plot
+
+    Notebook: C4/C4S3_ScapePlot.ipynb
+
+    Args:
+        SP: Scape plot data (encodes as start-duration matrix)
+        Fs: Sampling rate (Default value = 1)
+        ax: Used axes (Default value = None)
+        figsize: Figure size (Default value = (4, 3))
+        title: Title of figure (Default value = '')
+        xlabel: Label for x-axis (Default value = 'Center (seconds)')
+        ylabel: Label for y-axis (Default value = 'Length (seconds)')
+
+    Returns:
+        fig: Handle for figure
+        ax: Handle for axes
+        im: Handle for imshow
+    """
+    fig = None
+    if(ax is None):
+        fig = plt.figure(figsize=figsize)
+        ax = plt.gca()
+    N = SP.shape[0]
+    SP_vis = np.zeros((N, N))
+    for length_minus_one in range(N):
+        for start in range(N-length_minus_one):
+            center = start + length_minus_one//2
+            SP_vis[length_minus_one, center] = SP[length_minus_one, start]
+
+    extent = np.array([-0.5, (N-1)+0.5, -0.5, (N-1)+0.5]) / Fs
+    im = plt.imshow(SP_vis, cmap='hot_r', aspect='auto', origin='lower', extent=extent)
+    x = np.asarray(range(N))
+    x_half_lower = x/2
+    x_half_upper = x/2 + N/2 - 1/2
+    plt.plot(x_half_lower/Fs, x/Fs, '-', linewidth=3, color='black')
+    plt.plot(x_half_upper/Fs, np.flip(x, axis=0)/Fs, '-', linewidth=3, color='black')
+    plt.plot(x/Fs, np.zeros(N)/Fs, '-', linewidth=3, color='black')
+    plt.xlim([0, (N-1) / Fs])
+    plt.ylim([0, (N-1) / Fs])
+    ax.set_title(title)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    plt.tight_layout()
+    plt.colorbar(im, ax=ax)
+    return fig, ax, im
+
 

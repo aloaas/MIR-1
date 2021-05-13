@@ -401,12 +401,13 @@ def extract(fs, length=None, save_SSM=True, save_thumbnail=True, save_wav=True, 
             np.save(output_path+'{}_seg.npy'.format(name), seg)
         st.write("Thumnb saved")
 
+
         if save_wav:
             librosa.output.write_wav(output_path+'{}_audio.wav'.format(name),
                                         x[seg[0] * 22050:seg[1] * 22050], 22050)
 
         st.write("WAV saved")
-
+        st.write(output_path+'{}_audio.wav'.format(name))
 
 if __name__ == '__main__':
     # fs = ["data/Pink Floyd - The Great Gig in The Sky.wav", "data/FMP_C4_Audio_Beatles_YouCantDoThat.wav"]
