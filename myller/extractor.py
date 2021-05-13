@@ -372,18 +372,18 @@ def extract(fs, length=None, save_SSM=True, save_thumbnail=True, save_wav=True, 
                                                              thresh=0.15)
         # Save not normalized SSM.
 
-        st.write(SSM)
 
         if (not os.path.exists("output" + os.path.sep + "repetition")):
             os.mkdir("output" + os.path.sep + "repetition")
         if save_SSM:
             np.save(output_path, SSM)
-
-        st.write(SSM)
+        st.write("Sssm saved")
         SSM = normalization_properties_ssm(SSM)
-
+        st.write("Normalization done")
         SP_all = compute_fitness_scape_plot(SSM)
         SP = SP_all[0]
+
+        st.write("Scape plot done!")
 
         seg = seg_max_SP(SP, length_of_seg=length)
 
