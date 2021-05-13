@@ -4,7 +4,7 @@ import time
 from collections import namedtuple
 import altair as alt
 import math
-#import pop_music_highlighter.extractor as pmhe
+import pop_music_highlighter.extractor as pmhe
 import myller.extractor as me
 
 import numpy as np
@@ -20,18 +20,18 @@ if uploaded_file is not None:
     st.audio(uploaded_file)
     st.write(uploaded_file)
     file_path = "data" + os.path.sep + uploaded_file.name
+    path = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_audio.wav'.format(uploaded_file.name)
 
     with open(file_path, "wb") as f:
         f.write(uploaded_file.getbuffer())
-        #path = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_audio.wav'.format(uploaded_file.name)
 
-#   with st.spinner("Processing..."):
-#      pmhe.extract(uploaded_file, length=15, save_score=True, save_thumbnail=True, save_wav=True)
-# st.success("Success!")
+    with st.spinner("Processing..."):
+      pmhe.extract(uploaded_file, length=15, save_score=True, save_thumbnail=True, save_wav=True)
+    st.success("Success!")
 
-#if os.path.isfile(path):
- #   st.audio(path)
 
+    if os.path.isfile(path):
+        st.audio(path)
 
     path = 'output' + os.path.sep + 'repetition' + os.path.sep + '{}_SSM_norm.npy'.format(uploaded_file.name)
     file_details = {"FileName": uploaded_file.name, "FileType": uploaded_file.type}
@@ -43,7 +43,7 @@ if uploaded_file is not None:
     #     f.write(uploaded_file.getbuffer())
     # st.success("Saved File")
     with st.spinner("Processing once more..."):
-        me.extract([file_path], length=15)
+        me.extract([file_path], length=15, output_path=path)
     st.success("Success Again!")
 
     st.write(path)
