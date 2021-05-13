@@ -15,12 +15,9 @@ import streamlit as st
 # Thumbnail.me
 Upload a .wav or .mp3 file below and get the respective audio thumbnail and self similarity matrix.
 """
-uploaded_file = st.file_uploader("Choose a file", type=['mp3', 'wav'])
-
 
 uploaded_file = st.file_uploader("Choose a file", type=['mp3', 'wav'])
 if uploaded_file is not None:
-#    st.audio(uploaded_file)
     file_path = "data" + os.path.sep + uploaded_file.name
     path = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_audio.wav'.format(uploaded_file.name)
 
