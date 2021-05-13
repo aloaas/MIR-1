@@ -17,7 +17,7 @@ from matplotlib import pyplot as plt
 Upload a .wav or .mp3 file below and get the respective audio thumbnail and self similarity matrix.
 """
 analyte = st.radio(
-     "Myller, Neural or  Both?",     ('Myller', 'Neural', 'Both'))
+     "Pick one..",     ('Myller', 'Neural', 'Both'))
 if analyte is not None:
     st.write(analyte)
     length = st.slider('How long thumbnail do you like?', 1, 31)
