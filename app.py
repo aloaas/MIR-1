@@ -18,7 +18,7 @@ Upload a .wav or .mp3 file below and get the respective audio thumbnail and self
 """
 analyte = st.radio(
      "Pick one..",     ('None', 'Myller', 'Neural', 'Both'))
-if analyte == "None":
+if analyte != "None":
     st.write(analyte)
     length = st.slider('How long thumbnail do you like?', 1, 31)
 
