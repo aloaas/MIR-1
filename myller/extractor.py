@@ -206,7 +206,7 @@ def visualize_scape_plot(SP, Fs=1, ax=None, figsize=(4, 3), title='',
 
 
 @jit(forceobj=True)
-def compute_fitness_scape_plot(S):
+def compute_fitness_scape_plot(S, st):
     """Compute scape plot for fitness and other measures
 
     Notebook: /C4/C4S3_ScapePlot.ipynb
@@ -224,13 +224,15 @@ def compute_fitness_scape_plot(S):
     SP_score_n = np.zeros((N, N))
     SP_coverage = np.zeros((N, N))
     SP_coverage_n = np.zeros((N, N))
-
+    st.write("shapes done")
     for length_minus_one in range(N):
         for start in range(N-length_minus_one):
             S_seg = S[:, start:start+length_minus_one+1]
             D, score = compute_accumulated_score_matrix(S_seg)
             path_family = compute_optimal_path_family(D)
+            st.write("family done")
             fitness, score, score_n, coverage, coverage_n, path_family_length = compute_fitness(path_family, score, N)
+            st.write("fitness done")
             SP_fitness[length_minus_one, start] = fitness
             SP_score[length_minus_one, start] = score
             SP_score_n[length_minus_one, start] = score_n
@@ -380,7 +382,7 @@ def extract(fs, length=None, save_SSM=True, save_thumbnail=True, save_wav=True, 
         st.write("Sssm saved")
         SSM = normalization_properties_ssm(SSM)
         st.write("Normalization done")
-        SP_all = compute_fitness_scape_plot(SSM)
+        SP_all = compute_fitness_scape_plot(SSM, st)
         SP = SP_all[0]
 
         st.write("Scape plot done!")
