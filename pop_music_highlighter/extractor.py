@@ -17,7 +17,7 @@ def extract(fs, length=30, save_score=True, save_thumbnail=True, save_wav=True):
             model = MusicHighlighter()
             sess.run(tf.global_variables_initializer())
             # model.saver.restore(sess, "pop_music_highlighter" + os.path.sep + "model" + os.path.sep + "model")
-            model.saver.restore(sess, "model/model")
+            model.saver.restore(sess, "model" + os.path.sep +"model")
 
             name = f.name
             audio, spectrogram, duration = audio_read(f)

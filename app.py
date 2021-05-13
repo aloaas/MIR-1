@@ -4,7 +4,7 @@ import time
 from collections import namedtuple
 import altair as alt
 import math
-#import pop_music_highlighter.extractor as pmhe
+import pop_music_highlighter.extractor as pmhe
 import myller.extractor as me
 
 import numpy as np
@@ -24,7 +24,7 @@ if uploaded_file is not None:
         f.write(uploaded_file.getbuffer())
     path = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_audio.wav'.format(uploaded_file.name)
     with st.spinner("Processing..."):
-    #    pmhe.extract(uploaded_file, length=10, save_score=True, save_thumbnail=True, save_wav=True)
+        pmhe.extract(uploaded_file, length=10, save_score=True, save_thumbnail=True, save_wav=True)
         st.success("Success!")
 
     if os.path.isfile(path):
