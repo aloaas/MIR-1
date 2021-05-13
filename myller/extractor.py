@@ -392,16 +392,20 @@ def extract(fs, length=None, save_SSM=True, save_thumbnail=True, save_wav=True, 
 
         if save_SSM:
             np.save(output_path+'{}_SSM_norm.npy'.format(name), SSM)
-
+        st.write("SSM saved")
         if save_SP:
             np.save(output_path+'{}_SP.npy'.format(name), SP)
+        st.write("SP saved")
 
         if save_thumbnail:
             np.save(output_path+'{}_seg.npy'.format(name), seg)
+        st.write("Thumnb saved")
 
         if save_wav:
             librosa.output.write_wav(output_path+'{}_audio.wav'.format(name),
                                         x[seg[0] * 22050:seg[1] * 22050], 22050)
+
+        st.write("WAV saved")
 
 
 if __name__ == '__main__':
