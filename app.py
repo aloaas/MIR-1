@@ -22,7 +22,7 @@ if uploaded_file is not None:
     file_path = os.path.join("data", uploaded_file.name)
     with open(file_path, "wb") as f:
         f.write(uploaded_file.getbuffer())
-    path = 'output' + os.path.sep + 'attention'+ os.path.sep + '{}_audio.wav'.format(uploaded_file.name)
+    path = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_audio.wav'.format(uploaded_file.name)
     with st.spinner("Processing..."):
     #    pmhe.extract(uploaded_file, length=10, save_score=True, save_thumbnail=True, save_wav=True)
         st.success("Success!")
