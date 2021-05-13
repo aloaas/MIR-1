@@ -17,6 +17,7 @@ Upload a .wav or .mp3 file below and get the respective audio thumbnail and self
 """
 genre = st.radio(
      "Myller, Neural or  Both?",     ('Myller', 'Neural', 'Both'))
+age = st.slider('How long thumbnail do you like?', 1, 31)
 
 uploaded_file = st.file_uploader("Choose a file", type=['mp3', 'wav'])
 if uploaded_file is not None:
@@ -26,7 +27,7 @@ if uploaded_file is not None:
         f.write(uploaded_file.getbuffer())
     path = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_audio.wav'.format(uploaded_file.name)
     with st.spinner("Processing..."):
-        pmhe.extract(uploaded_file, length=10, save_score=True, save_thumbnail=True, save_wav=True)
+        pmhe.extract([uploaded_file], length=10, save_score=True, save_thumbnail=True, save_wav=True)
         st.success("Success!")
 
     if os.path.isfile(path):
