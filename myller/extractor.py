@@ -358,7 +358,7 @@ def extract(fs, length=None, save_SSM=True, save_thumbnail=True, save_wav=True, 
     """
 
     for fn_wav in fs:
-        name = os.path.split(fn_wav)[-1][:-4]
+
 
         tempo_rel_set = compute_tempo_rel_set(0.66, 1.5, 5)
 
