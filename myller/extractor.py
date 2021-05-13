@@ -341,7 +341,7 @@ def check_segment(seg, S):
     return path_family
 
 
-def extract(fs, length=None, save_SSM=True, save_thumbnail=True, save_wav=True, save_SP=True, output_path='output'+ os.path.sep +'repetition' + os.path.sep ):
+def extract(fs, length=None, save_SSM=True, save_thumbnail=True, save_wav=True, save_SP=True, output_path='output'+ os.path.sep +'repetition' + os.path.sep, st=None):
     """Prints properties of segments with regard to SSM S
 
     Args:
@@ -371,9 +371,12 @@ def extract(fs, length=None, save_SSM=True, save_thumbnail=True, save_wav=True, 
                                                              penalty=penalty,
                                                              thresh=0.15)
         # Save not normalized SSM.
+
+        st.write(SSM)
         if save_SSM:
             np.save(output_path+'{}_SSM.npy'.format(name), SSM)
 
+        st.write(SSM)
         SSM = normalization_properties_ssm(SSM)
 
         SP_all = compute_fitness_scape_plot(SSM)
