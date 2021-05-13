@@ -21,6 +21,8 @@ length = st.slider('How long thumbnail do you like?', 1, 31)
 
 uploaded_file = st.file_uploader("Choose a file", type=['mp3', 'wav'])
 if uploaded_file is not None:
+    st.write(analyte)
+    st.write(length)
     st.audio(uploaded_file)
     uploaded_file_path = os.path.join("data", uploaded_file.name)
     with open(uploaded_file_path, "wb") as f:
