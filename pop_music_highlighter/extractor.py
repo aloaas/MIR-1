@@ -10,7 +10,7 @@ import os
 os.environ["CUDA_VISIBLE_DEVICES"] = ''
 
 
-def extract(fs, length=30, save_score=True, save_thumbnail=True, save_wav=True):
+def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save_wav=True):
     for f in fs:
         with tf.Session() as sess:
 
@@ -19,7 +19,6 @@ def extract(fs, length=30, save_score=True, save_thumbnail=True, save_wav=True):
             # model.saver.restore(sess, "pop_music_highlighter" + os.path.sep + "model" + os.path.sep + "model")
             model.saver.restore(sess, "pop_music_highlighter" + os.path.sep + "model" + os.path.sep + "model")
 
-            name = f.name
             audio, spectrogram, duration = audio_read(f)
             n_chunk, remainder = np.divmod(duration, 3)
             chunk_spec = chunk(spectrogram, n_chunk)

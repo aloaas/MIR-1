@@ -341,7 +341,7 @@ def check_segment(seg, S):
     return path_family
 
 
-def extract(fs, length=None, save_SSM=True, save_thumbnail=True, save_wav=True, save_SP=True, output_path='output'+ os.path.sep +'repetition' + os.path.sep, st=None):
+def extract(fs, name=None, length=None, save_SSM=True, save_thumbnail=True, save_wav=True, save_SP=True, output_path='output'+ os.path.sep +'repetition' + os.path.sep, st=None):
     """Prints properties of segments with regard to SSM S
 
     Args:
@@ -389,7 +389,6 @@ def extract(fs, length=None, save_SSM=True, save_thumbnail=True, save_wav=True, 
 
         # path_family = check_segment(seg, S)
         # print(seg)
-        name = fs.name
         if save_SSM:
             np.save(output_path+'{}_SSM_norm.npy'.format(name), SSM)
         st.write("SSM saved")
