@@ -21,9 +21,9 @@ analyte = st.radio(
      "Pick one..",     ('None', 'Myller', 'Neural', 'Both'))
 if analyte != "None":
     st.write(analyte)
-    length = st.slider('How long thumbnail do you like?', 1, 31)
+    length = st.slider('How long thumbnail do you like?', 1, 31, value=0)
 
-if length is not None:
+if length in range(1, 31):
     st.write(length)
 
     uploaded_file = st.file_uploader("Choose a file", type=['mp3', 'wav'])
