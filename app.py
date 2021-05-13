@@ -15,6 +15,8 @@ import streamlit as st
 # Thumbnail.me
 Upload a .wav or .mp3 file below and get the respective audio thumbnail and self similarity matrix.
 """
+genre = st.radio(
+     "Myller, Neural or  Both?",     ('Myller', 'Neural', 'Both'))
 
 uploaded_file = st.file_uploader("Choose a file", type=['mp3', 'wav'])
 if uploaded_file is not None:
