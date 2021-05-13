@@ -373,6 +373,9 @@ def extract(fs, length=None, save_SSM=True, save_thumbnail=True, save_wav=True, 
         # Save not normalized SSM.
 
         st.write(SSM)
+
+        if (not os.path.exists("output" + os.path.sep + "repetition")):
+            os.mkdir("output" + os.path.sep + "repetition")
         if save_SSM:
             np.save(output_path, SSM)
 
