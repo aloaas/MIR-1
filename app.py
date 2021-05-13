@@ -18,7 +18,7 @@ Upload a .wav or .mp3 file below and get the respective audio thumbnail and self
 """
 length = None
 analyte = st.radio(
-     "Pick one..",     ('None', 'Myller', 'Neural', 'Both'))
+     "Pick one..",     ('None', 'Repetition', 'Attention', 'Both'))
 if analyte != "None":
     st.write(analyte)
     length = st.slider('How long thumbnail do you like?', 1, 31, value=0)
@@ -38,7 +38,7 @@ if length in range(1, 31):
         with open(uploaded_file_path, "wb") as f:
             f.write(uploaded_file.getbuffer())
 
-        if analyte is not None and analyte == "Neural" or analyte == "Both":
+        if analyte is not None and analyte == "Attention" or analyte == "Both":
             path_neural_wav = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_audio.wav'.format(uploaded_file.name)
             with st.spinner("Processing..."):
                 pmhe.extract([uploaded_file], length=length, save_score=True, save_thumbnail=True, save_wav=True)
@@ -47,7 +47,7 @@ if length in range(1, 31):
             if os.path.isfile(path_neural_wav):
                 st.audio(path_neural_wav)
 
-        if analyte is not None and analyte == "Myller" or analyte == "Both":
+        if analyte is not None and analyte == "Repetition" or analyte == "Both":
 
             path_ssm_norm = 'output' + os.path.sep + 'repetition' + os.path.sep + '{}_SSM_norm.npy'.format(name)
             path_myller_wav = 'output' + os.path.sep + 'repetition' + os.path.sep + '{}_audio.wav'.format(name)
