@@ -374,7 +374,7 @@ def extract(fs, length=None, save_SSM=True, save_thumbnail=True, save_wav=True, 
 
         st.write(SSM)
         if save_SSM:
-            np.save(output_path+'{}_SSM.npy'.format(name), SSM)
+            np.save(output_path, SSM)
 
         st.write(SSM)
         SSM = normalization_properties_ssm(SSM)
