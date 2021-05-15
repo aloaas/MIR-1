@@ -224,7 +224,7 @@ def compute_fitness_scape_plot(S, st):
     SP_score_n = np.zeros((N, N))
     SP_coverage = np.zeros((N, N))
     SP_coverage_n = np.zeros((N, N))
-    st.write("shapes done")
+    # st.write("shapes done")
     for length_minus_one in range(N):
         for start in range(N-length_minus_one):
             S_seg = S[:, start:start+length_minus_one+1]
@@ -359,7 +359,6 @@ def extract(fs, name=None, length=None, save_SSM=True, save_thumbnail=True, save
 
     for fn_wav in fs:
 
-
         tempo_rel_set = compute_tempo_rel_set(0.66, 1.5, 5)
 
         penalty = -2
@@ -370,9 +369,14 @@ def extract(fs, name=None, length=None, save_SSM=True, save_thumbnail=True, save
                                                              tempo_rel_set=tempo_rel_set,
                                                              penalty=penalty,
                                                              thresh=0.15)
+
+        limit_length = 4*60  # sec
+        x = x[:22050 * limit_length]
+        SSM = SSM[:limit_length, :limit_length]
+
+        # name = "".join(".".join(f.split('.')[:-1]).split("/")[1:])  # If we want file names with it.
+
         # Save not normalized SSM.
-
-
         if (not os.path.exists("output" + os.path.sep + "repetition")):
             os.mkdir("output" + os.path.sep + "repetition")
         if save_SSM:

@@ -16,7 +16,9 @@ def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save
 
             model = MusicHighlighter()
             sess.run(tf.global_variables_initializer())
-            # model.saver.restore(sess, "pop_music_highlighter" + os.path.sep + "model" + os.path.sep + "model")
+
+            # name = "".join(".".join(f.split('.')[:-1]).split("/")[1:])  # If we want file names with it.
+
             model.saver.restore(sess, "pop_music_highlighter" + os.path.sep + "model" + os.path.sep + "model")
 
             audio, spectrogram, duration = audio_read(f)
@@ -35,9 +37,9 @@ def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save
             # score
             attn_score = attn_score / attn_score.max()
             if save_score:
-                if (not os.path.exists("output" + os.path.sep + "attention")):
+                if not os.path.exists("output" + os.path.sep + "attention"):
                     os.mkdir("output" + os.path.sep + "attention")
-                np.save('output' + os.path.sep + 'attention\\{}_score.npy'.format(name), attn_score)
+                np.save('output' + os.path.sep + 'attention' + os.path.sep + '{}_score.npy'.format(name), attn_score)
 
             # thumbnail
             attn_score = attn_score.cumsum()
@@ -46,9 +48,15 @@ def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save
             highlight = [index, index + length]
 
             if save_thumbnail:
+                if not os.path.exists("output" + os.path.sep + "attention"):
+                    os.mkdir("output" + os.path.sep + "attention")
+
                 np.save('output' + os.path.sep + 'attention' + os.path.sep + '{}_highlight.npy'.format(name), highlight)
 
             if save_wav:
+                if not os.path.exists("output" + os.path.sep + "attention"):
+                    os.mkdir("output" + os.path.sep + "attention")
+
                 librosa.output.write_wav('output' + os.path.sep + 'attention' + os.path.sep + '{}_audio.wav'.format(name),
                                          audio[highlight[0] * 22050:highlight[1] * 22050], 22050)
 
