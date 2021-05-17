@@ -22,7 +22,7 @@ def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save
             model.saver.restore(sess, "pop_music_highlighter" + os.path.sep + "model" + os.path.sep + "model")
 
             audio, spectrogram, duration, mel_plot = audio_read(f)
-            st.pyplot(spectrogram)
+            #st.pyplot(spectrogram)
             st.pytplot(mel_plot)
             n_chunk, remainder = np.divmod(duration, 3)
             chunk_spec = chunk(spectrogram, n_chunk)
