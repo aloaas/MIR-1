@@ -371,7 +371,7 @@ def extract(fs, name=None, length=None, save_SSM=True, save_thumbnail=True, save
                                                              penalty=penalty,
                                                              thresh=0.15)
 
-        limit_length = 4*60  # sec
+        limit_length = 7*60  # sec
         x = x[:22050 * limit_length]
         SSM = SSM[:limit_length, :limit_length]
 
