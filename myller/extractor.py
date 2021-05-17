@@ -396,7 +396,7 @@ def extract(fs, name=None, length=None, save_SSM=True, save_thumbnail=True, save
         st.pyplot(fig1)
         st.pyplot(fig2)
         # path_family = check_segment(seg, S)
-        st.write(seg)
+        st.text(seg)
         if save_SSM:
             np.save(output_path+'{}_SSM_norm.npy'.format(name), SSM)
         #st.write("SSM saved")
