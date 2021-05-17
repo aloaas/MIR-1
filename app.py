@@ -61,7 +61,7 @@ if length in range(1, 31):
         if analyte is not None and analyte == "Attention" or analyte == "Both":
             path_neural_wav = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_audio.wav'.format(name)
             with st.spinner("Processing attention"):
-                pmhe.extract([uploaded_file.name], name=name, length=length, save_score=True, save_thumbnail=True, save_wav=True)
+                pmhe.extract([uploaded_file.name], name=name, length=length, save_score=True, save_thumbnail=True, save_wav=True, st=st)
                 st.success("Attention Success!")
 
             if os.path.isfile(path_neural_wav):
