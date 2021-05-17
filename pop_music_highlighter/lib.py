@@ -27,10 +27,10 @@ def audio_read(f):
     S_DB = librosa.power_to_db(S, ref=np.max)
     hop_length = 512
     librosa.display.specshow(S_DB, sr=sr, hop_length=hop_length, x_axis='time', y_axis='mel')
-    plot = plt.colorbar(format='%+2.0f dB')
+    plt.colorbar(format='%+2.0f dB')
+    plot = plt.figure()
     S = np.transpose(np.log(1+10000*S))
     S = np.expand_dims(S, axis=0)
-
     return y, S, int(d), plot
 
 
