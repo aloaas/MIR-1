@@ -50,7 +50,7 @@ def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save
             attn_score = np.append(attn_score[length], attn_score[length:] - attn_score[:-length])
             index = np.argmax(attn_score)
             highlight = [index, index + length]
-            st.write(highlight)
+            st.text(highlight)
             if save_thumbnail:
                 if not os.path.exists("output" + os.path.sep + "attention"):
                     os.mkdir("output" + os.path.sep + "attention")
