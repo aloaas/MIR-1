@@ -4,6 +4,7 @@ import numpy as np
 import librosa
 from pydub import AudioSegment
 import matplotlib.pyplot as plt
+import librosa.display
 
 def chunk(incoming, n_chunk):
     input_length = incoming.shape[1]
