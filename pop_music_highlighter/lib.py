@@ -3,7 +3,7 @@ import os.path
 import numpy as np
 import librosa
 from pydub import AudioSegment
-
+import matplotlib.pyplot as plt
 
 def chunk(incoming, n_chunk):
     input_length = incoming.shape[1]
@@ -25,7 +25,11 @@ def audio_read(f):
     S = librosa.feature.melspectrogram(y, sr=sr, n_fft=2048, hop_length=512, n_mels=128)
     S = np.transpose(np.log(1+10000*S))
     S = np.expand_dims(S, axis=0)
-    return y, S, int(d)
+    hop_length = 512
+    S_DB = librosa.power_to_db(S, ref=np.max)
+    librosa.display.specshow(S_DB, sr=sr, hop_length=hop_length, x_axis='time', y_axis='mel');
+    plot = plt.colorbar(format='%+2.0f dB');
+    return y, S, int(d), plot
 
 
 def positional_encoding(batch_size, n_pos, d_pos):

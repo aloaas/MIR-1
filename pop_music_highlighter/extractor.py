@@ -10,7 +10,7 @@ import os
 os.environ["CUDA_VISIBLE_DEVICES"] = ''
 
 
-def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save_wav=True):
+def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save_wav=True, st=None):
     for f in fs:
         with tf.Session() as sess:
 
@@ -21,7 +21,9 @@ def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save
 
             model.saver.restore(sess, "pop_music_highlighter" + os.path.sep + "model" + os.path.sep + "model")
 
-            audio, spectrogram, duration = audio_read(f)
+            audio, spectrogram, duration, mel_plot = audio_read(f)
+            st.pyplot(spectrogram)
+            st.pytplot(mel_plot)
             n_chunk, remainder = np.divmod(duration, 3)
             chunk_spec = chunk(spectrogram, n_chunk)
             pos = positional_encoding(batch_size=1, n_pos=n_chunk, d_pos=model.dim_feature * 4)
@@ -36,6 +38,8 @@ def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save
 
             # score
             attn_score = attn_score / attn_score.max()
+            st.write(n_chunk)
+
             if save_score:
                 if not os.path.exists("output" + os.path.sep + "attention"):
                     os.mkdir("output" + os.path.sep + "attention")
@@ -46,7 +50,7 @@ def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save
             attn_score = np.append(attn_score[length], attn_score[length:] - attn_score[:-length])
             index = np.argmax(attn_score)
             highlight = [index, index + length]
-
+            st.write(highlight)
             if save_thumbnail:
                 if not os.path.exists("output" + os.path.sep + "attention"):
                     os.mkdir("output" + os.path.sep + "attention")
