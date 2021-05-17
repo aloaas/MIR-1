@@ -5,7 +5,6 @@ import os
 import numpy as np
 from matplotlib import pyplot as plt
 from numba import jit
-
 from .utils.c4 import compute_accumulated_score_matrix, \
     compute_optimal_path_family, \
     compute_induced_segment_family_coverage, \
@@ -295,18 +294,20 @@ def plot_sp_ssm(SP, seg, S, ann, color_ann=[], title='', figsize=(5, 4)):
     """Visulization of SP and SSM
     Notebook: C4/C4S3_ScapePlot.ipynb"""
     float_box = FloatingBox()
-    fig, ax, im = visualize_scape_plot(SP, figsize=figsize, title=title,
+    fig1, ax, im = visualize_scape_plot(SP, figsize=figsize, title=title,
                                        xlabel='Center (frames)', ylabel='Length (frames)')
     plot_seg_in_sp(ax, seg, S)
-    float_box.add_fig(fig)
+    #float_box.add_fig(fig)
 
     penalty = np.min(S)
     cmap_penalty = colormap_penalty(penalty=penalty)
-    fig, ax, im = plot_ssm_ann_optimal_path_family(
+    fig2, ax, im = plot_ssm_ann_optimal_path_family(
         S, ann, seg, color_ann=color_ann, fontsize=8, cmap=cmap_penalty, figsize=(4, 4),
         ylabel='Time (frames)')
-    float_box.add_fig(fig)
-    float_box.show()
+    #float_box.add_fig(fig)
+    #float_box.show()
+    return fig1, fig2
+
 
 
 def check_segment(seg, S):
@@ -381,36 +382,45 @@ def extract(fs, name=None, length=None, save_SSM=True, save_thumbnail=True, save
             os.mkdir("output" + os.path.sep + "repetition")
         if save_SSM:
             np.save(output_path, SSM)
-        st.write("Sssm saved")
         SSM = normalization_properties_ssm(SSM)
         st.write("Normalization done")
         SP_all = compute_fitness_scape_plot(SSM, st)
         SP = SP_all[0]
 
-        st.write("Scape plot done!")
+        #st.write("Scape plot done!")
+        #plt, ax, im =  visualize_scape_plot(SP)
+        #st.pyplot(plt)
 
         seg = seg_max_SP(SP, length_of_seg=length)
-
+        fig1, fig2 = plot_sp_ssm(SP, seg, SSM, None)
+        st.pyplot(fig1)
+        st.pyplot(fig2)
         # path_family = check_segment(seg, S)
         # print(seg)
         if save_SSM:
             np.save(output_path+'{}_SSM_norm.npy'.format(name), SSM)
-        st.write("SSM saved")
+        #st.write("SSM saved")
         if save_SP:
             np.save(output_path+'{}_SP.npy'.format(name), SP)
-        st.write("SP saved")
+        #st.write("SP saved")
 
         if save_thumbnail:
             np.save(output_path+'{}_seg.npy'.format(name), seg)
-        st.write("Thumnb saved")
+        #st.write("Thumnb saved")
 
 
         if save_wav:
             librosa.output.write_wav(output_path+'{}_audio.wav'.format(name),
                                         x[seg[0] * 22050:seg[1] * 22050], 22050)
 
-        st.write("WAV saved")
-        st.write(output_path+'{}_audio.wav'.format(name))
+        #st.write("WAV saved")
+        #st.write(output_path+'{}_audio.wav'.format(name))
+
+
+
+
+
+
 
 if __name__ == '__main__':
     # fs = ["data/Pink Floyd - The Great Gig in The Sky.wav", "data/FMP_C4_Audio_Beatles_YouCantDoThat.wav"]

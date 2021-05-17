@@ -54,7 +54,7 @@ def normalization_properties_ssm(S):
     return S
 
 
-def plot_ssm_ann(S, ann, Fs=1, cmap='gray_r', color_ann=[], ann_x=True, ann_y=True,
+def plot_ssm_ann(S, ann, Fs=1, cmap='gray_r', color_ann=[], ann_x=False, ann_y=False,
                  fontsize=12, figsize=(5, 4.5), xlabel='', ylabel='', title=''):
     """Plot SSM and annotations (horizontal and vertical as overlay)
 

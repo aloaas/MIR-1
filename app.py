@@ -30,7 +30,7 @@ if length in range(1, 31):
 
     if uploaded_file is not None:
         file_details = {"FileName": uploaded_file.name, "FileType": uploaded_file.type}
-        st.write(file_details)
+        #st.write(file_details)
         st.audio(uploaded_file)
         uploaded_file_path = os.path.join("data", uploaded_file.name)
 
@@ -38,87 +38,39 @@ if length in range(1, 31):
         with open(uploaded_file_path, "wb") as f:
             f.write(uploaded_file.getbuffer())
 
-        if analyte is not None and analyte == "Attention" or analyte == "Both":
-            path_neural_wav = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_audio.wav'.format(uploaded_file.name)
-            with st.spinner("Processing attention"):
-                pmhe.extract([uploaded_file], name=name, length=length, save_score=True, save_thumbnail=True, save_wav=True)
-                st.success("Success!")
-
-            if os.path.isfile(path_neural_wav):
-                st.audio(path_neural_wav)
-
         if analyte is not None and analyte == "Repetition" or analyte == "Both":
 
             path_ssm_norm = 'output' + os.path.sep + 'repetition' + os.path.sep + '{}_SSM_norm.npy'.format(name)
             path_myller_wav = 'output' + os.path.sep + 'repetition' + os.path.sep + '{}_audio.wav'.format(name)
             path_scape_plot = 'output' + os.path.sep + 'repetition' + os.path.sep + '{}_SP.npy'.format(name)
-            st.write(uploaded_file_path)
-            st.write(path_ssm_norm)
-            st.write(path_myller_wav)
-            st.write(path_scape_plot)
+            #st.write(uploaded_file_path)
+            #st.write(path_ssm_norm)
+            #st.write(path_myller_wav)
+            #st.write(path_scape_plot)
 
 
 
             with st.spinner("Processing repetition"):
                 me.extract([uploaded_file_path], name=name, length=length, st=st)
-            st.success("Success Again!")
+            st.success("Repetition Success!")
 
-            st.write(path_ssm_norm)
-            st.write(path_myller_wav)
+            #st.write(path_ssm_norm)
+            #st.write(path_myller_wav)
 
             if os.path.isfile(path_myller_wav):
                 st.audio(path_myller_wav)
 
 
+        if analyte is not None and analyte == "Attention" or analyte == "Both":
+            path_neural_wav = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_audio.wav'.format(name)
+            with st.spinner("Processing attention"):
+                pmhe.extract([uploaded_file.name], name=name, length=length, save_score=True, save_thumbnail=True, save_wav=True)
+                st.success("Attention Success!")
+
+            if os.path.isfile(path_neural_wav):
+                st.audio(path_neural_wav)
 
 
 
-def visualize_scape_plot(SP, Fs=1, ax=None, figsize=(4, 3), title='',
-                         xlabel='Center (seconds)', ylabel='Length (seconds)'):
-    """Visualize scape plot
-
-    Notebook: C4/C4S3_ScapePlot.ipynb
-
-    Args:
-        SP: Scape plot data (encodes as start-duration matrix)
-        Fs: Sampling rate (Default value = 1)
-        ax: Used axes (Default value = None)
-        figsize: Figure size (Default value = (4, 3))
-        title: Title of figure (Default value = '')
-        xlabel: Label for x-axis (Default value = 'Center (seconds)')
-        ylabel: Label for y-axis (Default value = 'Length (seconds)')
-
-    Returns:
-        fig: Handle for figure
-        ax: Handle for axes
-        im: Handle for imshow
-    """
-    fig = None
-    if(ax is None):
-        fig = plt.figure(figsize=figsize)
-        ax = plt.gca()
-    N = SP.shape[0]
-    SP_vis = np.zeros((N, N))
-    for length_minus_one in range(N):
-        for start in range(N-length_minus_one):
-            center = start + length_minus_one//2
-            SP_vis[length_minus_one, center] = SP[length_minus_one, start]
-
-    extent = np.array([-0.5, (N-1)+0.5, -0.5, (N-1)+0.5]) / Fs
-    im = plt.imshow(SP_vis, cmap='hot_r', aspect='auto', origin='lower', extent=extent)
-    x = np.asarray(range(N))
-    x_half_lower = x/2
-    x_half_upper = x/2 + N/2 - 1/2
-    plt.plot(x_half_lower/Fs, x/Fs, '-', linewidth=3, color='black')
-    plt.plot(x_half_upper/Fs, np.flip(x, axis=0)/Fs, '-', linewidth=3, color='black')
-    plt.plot(x/Fs, np.zeros(N)/Fs, '-', linewidth=3, color='black')
-    plt.xlim([0, (N-1) / Fs])
-    plt.ylim([0, (N-1) / Fs])
-    ax.set_title(title)
-    ax.set_xlabel(xlabel)
-    ax.set_ylabel(ylabel)
-    plt.tight_layout()
-    plt.colorbar(im, ax=ax)
-    return fig, ax, im
 
 
