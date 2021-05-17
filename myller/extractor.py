@@ -187,7 +187,7 @@ def visualize_scape_plot(SP, Fs=1, ax=None, figsize=(4, 3), title='',
             SP_vis[length_minus_one, center] = SP[length_minus_one, start]
 
     extent = np.array([-0.5, (N-1)+0.5, -0.5, (N-1)+0.5])/Fs
-    im = plt.imshow(SP_vis, cmap='hot_r', aspect='auto', origin='lower', extent=extent)
+    im = plt.imshow(SP_vis, cmap='inferno', aspect='auto', origin='lower', extent=extent)
     x = np.asarray(range(N))
     x_half_lower = x/2
     x_half_upper = x/2 + N/2 - 1/2
