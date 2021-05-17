@@ -5,6 +5,7 @@ import librosa
 from pydub import AudioSegment
 import matplotlib.pyplot as plt
 import librosa.display
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
 def chunk(incoming, n_chunk):
     input_length = incoming.shape[1]
@@ -25,10 +26,14 @@ def audio_read(f):
     d = librosa.core.get_duration(y=y, sr=sr)
     S = librosa.feature.melspectrogram(y, sr=sr, n_fft=2048, hop_length=512, n_mels=128)
     S_DB = librosa.power_to_db(S, ref=np.max)
+    fig = plt.Figure()
+    canvas = FigureCanvas(fig)
+    ax = fig.add_subplot(111)
+
     hop_length = 512
-    librosa.display.specshow(S_DB, sr=sr, hop_length=hop_length, x_axis='time', y_axis='mel')
-    plt.colorbar(format='%+2.0f dB')
     plot = plt.figure()
+    p = librosa.display.specshow(S_DB, sr=sr, hop_length=hop_length, ax=ax, x_axis='time', y_axis='mel')
+    plt.colorbar(format='%+2.0f dB')
     S = np.transpose(np.log(1+10000*S))
     S = np.expand_dims(S, axis=0)
     return y, S, int(d), plot
