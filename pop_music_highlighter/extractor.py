@@ -23,7 +23,7 @@ def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save
 
             audio, spectrogram, duration, mel_plot = audio_read(f)
             #st.pyplot(spectrogram)
-            st.pytplot(mel_plot)
+            st.pyplot(mel_plot)
             n_chunk, remainder = np.divmod(duration, 3)
             chunk_spec = chunk(spectrogram, n_chunk)
             pos = positional_encoding(batch_size=1, n_pos=n_chunk, d_pos=model.dim_feature * 4)
