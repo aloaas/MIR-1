@@ -276,7 +276,7 @@ def subplot_matrix_ti_colorbar(S, fig, ax, title='', Fs=1, xlabel='Time (seconds
 
 def compute_sm_from_filename(fn_wav, L=21, H=5, L_smooth=16, tempo_rel_set=np.array([1]),
                              shift_set=np.array([0]), strategy='relative', scale=1, thresh=0.15,
-                             penalty=0, binarize=0):
+                             penalty=0, binarize=0, limit_length=420):
     """Compute an SSM
 
     Notebook: C4S2_SSM-Thresholding.ipynb
@@ -296,6 +296,12 @@ def compute_sm_from_filename(fn_wav, L=21, H=5, L_smooth=16, tempo_rel_set=np.ar
     Fs = 22050
     x, Fs = librosa.load(fn_wav, Fs)
     x_duration = (x.shape[0])/Fs
+
+    # To speed up if song over limit length then smoothing rates are doubled.
+    if x_duration > limit_length:
+        multiplier = x_duration // limit_length + 1
+        L = int(L * multiplier - (multiplier - 1))
+        H = int(H * multiplier)
 
     # Chroma Feature Sequence and SSM (10 Hz)
     C = librosa.feature.chroma_stft(y=x, sr=Fs, tuning=0, norm=2, hop_length=2205, n_fft=4410)
