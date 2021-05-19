@@ -38,7 +38,6 @@ def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save
             # score
             attn_score = attn_score / attn_score.max()
             st.write(n_chunk)
-            st.pyplot(mel_plot)
 
             if save_score:
                 if not os.path.exists("output" + os.path.sep + "attention"):
