@@ -19,9 +19,8 @@ def plot_nn(score, highlight, y, sr):
 
     hop_length = 512
     librosa.display.specshow(S_DB, sr=sr, hop_length=hop_length, ax=ax, x_axis='time', y_axis='mel')
-    plt.plot(score, label='Score')
-    plt.axvline(highlight[0], color='red', label='Start of thumbnail')
-    plt.axvline(highlight[1], color='red', label='End of thumbnail')
+    plt.axvline(highlight[0], color='red', label='Start of thumbnail', ax=ax)
+    plt.axvline(highlight[1], color='red', label='End of thumbnail', ax=ax)
     plt.xlabel('Time (frames)')
     plt.ylabel('Score')
     return plot
