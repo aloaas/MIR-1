@@ -412,10 +412,7 @@ def extract(fs, name=None, length=None, save_SSM=True, save_thumbnail=True, save
             np.save(output_path+'{}_seg.npy'.format(name), seg)
 
         if save_wav:
-            print(Fs_feature)
-            print(seg)
             seg = [int(index / Fs_feature) for index in seg]
-            print(seg)
             librosa.output.write_wav(output_path+'{}_audio.wav'.format(name),
                                         x[seg[0] * 22050:seg[1] * 22050], 22050)
 

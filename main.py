@@ -7,7 +7,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Extractor test code')
     parser.add_argument("-filename", help="Song path location", default="data/Pink Floyd - The Great Gig in The Sky.wav")
-    parser.add_argument("-me", help="Run myller ?", default='y')
+    parser.add_argument("-me", help="Run myller", default='y')
     parser.add_argument("-pmhe", help="Run pop music highlighter", default='y')
     parser.add_argument("-length", help="Length of audio thumbnail", default=15, type=int)
     args = parser.parse_args()
