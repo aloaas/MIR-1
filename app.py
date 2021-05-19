@@ -25,15 +25,18 @@ plt.rcParams['text.color'] = COLOR
 plt.rcParams['axes.labelcolor'] = COLOR
 plt.rcParams['xtick.color'] = COLOR
 plt.rcParams['ytick.color'] = COLOR
+
+
 def plot_nn(score, highlight):
     score = np.load(score)
     highlight = np.load(highlight)
-    fig = plt.figure(facecolor="black")
-    plt.plot(score, label='Score')
-    plt.axvline(highlight[0], color='red', label='Start of thumbnail')
-    plt.axvline(highlight[1], color='red', label='End of thumbnail')
-    plt.xlabel('Time (frames)')
-    plt.ylabel('Score')
+    fig, ax = plt.figure(facecolor="black")
+    ax.plot(score, label='Score', color=COLOR)
+    ax.set_facecolor('#035a85')
+    ax.axvline(highlight[0], color='red', label='Start of thumbnail')
+    ax.axvline(highlight[1], color='red', label='End of thumbnail')
+    ax.set_xlabel('Time (frames)')
+    ax.set_ylabel('Score')
     return fig
 
 
