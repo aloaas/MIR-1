@@ -22,6 +22,7 @@ def plot_nn(score, highlight):
     score = np.load(score)
     highlight = np.load(highlight)
     fig = plt.figure()
+    fig.patch.set_facecolor('black')
     plt.plot(score, label='Score')
     plt.axvline(highlight[0], color='red', label='Start of thumbnail')
     plt.axvline(highlight[1], color='red', label='End of thumbnail')
