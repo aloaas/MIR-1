@@ -10,7 +10,7 @@ import os
 os.environ["CUDA_VISIBLE_DEVICES"] = ''
 
 def plot_nn(score, highlight, fig):
-    fig = plt.figure(fig.number)
+    fig = plt.figure(fig)
     plt.plot(score, label='Score')
     plt.axvline(highlight[0], color='red', label='Start of thumbnail')
     plt.axvline(highlight[1], color='red', label='End of thumbnail')

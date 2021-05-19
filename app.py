@@ -83,7 +83,7 @@ if length in range(1, 31):
             with st.spinner("Processing attention"):
                 pmhe.extract([uploaded_file.name], name=name, length=length, save_score=True, save_thumbnail=True, save_wav=True, st=st)
                 st.success("Attention Success!")
-            st.pyplot(plot_nn(score, highlight))
+
 
             if os.path.isfile(path_neural_wav):
                 st.audio(path_neural_wav)
