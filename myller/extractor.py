@@ -365,8 +365,8 @@ def extract(fs, name=None, length=None, save_SSM=True, save_thumbnail=True, save
 
         penalty = -2
         x, _, _, _, SSM, _ = compute_sm_from_filename(fn_wav,
-                                                             L=21,
-                                                             H=5,
+                                                             L=41,
+                                                             H=10,
                                                              L_smooth=12,
                                                              tempo_rel_set=tempo_rel_set,
                                                              penalty=penalty,
