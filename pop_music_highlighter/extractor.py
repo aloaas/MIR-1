@@ -8,9 +8,17 @@ import numpy as np
 import os
 
 os.environ["CUDA_VISIBLE_DEVICES"] = ''
+COLOR = 'white'
+plt.rcParams['figure.facecolor'] = '#035a85'
+plt.rcParams['axes.facecolor'] = COLOR
+plt.rcParams['savefig.facecolor'] = '#035a85'
+plt.rcParams['text.color'] = COLOR
+plt.rcParams['axes.labelcolor'] = COLOR
+plt.rcParams['xtick.color'] = COLOR
+plt.rcParams['ytick.color'] = COLOR
 
-def plot_nn(score, highlight, fig):
-    fig = plt.figure(fig)
+def plot_nn(score, highlight):
+    fig = plt.figure("1")
     plt.plot(score, label='Score')
     plt.axvline(highlight[0], color='red', label='Start of thumbnail')
     plt.axvline(highlight[1], color='red', label='End of thumbnail')
@@ -60,7 +68,7 @@ def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save
             index = np.argmax(attn_score)
             highlight = [index, index + length]
             st.text(highlight)
-            st.pyplot(plot_nn(score, highlight, mel_plot))
+            st.pyplot(plot_nn(score, highlight))
             if save_thumbnail:
                 if not os.path.exists("output" + os.path.sep + "attention"):
                     os.mkdir("output" + os.path.sep + "attention")
