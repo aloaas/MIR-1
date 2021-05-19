@@ -77,6 +77,9 @@ if length in range(1, 31):
             score = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_score.npy'.format(name)
             highlight = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_highlight.npy'.format(name)
             path_neural_wav = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_audio.wav'.format(name)
+            print(score)
+            print(highlight)
+            print(score)
             with st.spinner("Processing attention"):
                 pmhe.extract([uploaded_file.name], name=name, length=length, save_score=True, save_thumbnail=True, save_wav=True, st=st)
                 st.success("Attention Success!")
