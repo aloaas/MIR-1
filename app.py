@@ -19,6 +19,8 @@ Upload a .wav or .mp3 file below and get the respective audio thumbnail and self
 
 
 def plot_nn(score, highlight):
+    score = np.load(score)
+    highlight = np.load(highlight)
     fig = plt.figure()
     plt.plot(score, label='Score')
     plt.axvline(highlight[0], color='red', label='Start of thumbnail')
