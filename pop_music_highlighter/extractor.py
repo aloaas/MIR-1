@@ -9,8 +9,8 @@ import os
 
 os.environ["CUDA_VISIBLE_DEVICES"] = ''
 
-def plot_nn(score, highlight, fig):
-    fig = plt.figure(fig)
+def plot_nn(score, highlight):
+    fig = plt.figure()
     plt.plot(score, label='Score')
     plt.axvline(highlight[0], color='red', label='Start of thumbnail')
     plt.axvline(highlight[1], color='red', label='End of thumbnail')
@@ -60,7 +60,7 @@ def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save
             index = np.argmax(attn_score)
             highlight = [index, index + length]
             st.text(highlight)
-            st.pyplot(plot_nn(score, highlight, audio, sr))
+            st.pyplot(plot_nn(score, highlight))
             if save_thumbnail:
                 if not os.path.exists("output" + os.path.sep + "attention"):
                     os.mkdir("output" + os.path.sep + "attention")
