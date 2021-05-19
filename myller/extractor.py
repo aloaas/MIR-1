@@ -181,6 +181,7 @@ def visualize_scape_plot(SP, Fs=1, ax=None, figsize=(4, 3), title='',
         ax = plt.gca()
     N = SP.shape[0]
     SP_vis = np.zeros((N, N))
+    SP_vis = np.zeros((N, N))
     for length_minus_one in range(N):
         for start in range(N-length_minus_one):
             center = start + length_minus_one//2
@@ -372,8 +373,9 @@ def extract(fs, name=None, length=None, save_SSM=True, save_thumbnail=True, save
                                                              thresh=0.15)
 
         limit_length = 7*60  # sec
-        x = x[:22050 * limit_length]
-        SSM = SSM[:limit_length, :limit_length]
+        if len(x) > limit_length * 22050:
+            x = x[:22050 * limit_length]
+            SSM = SSM[:limit_length, :limit_length]
 
         # name = "".join(".".join(f.split('.')[:-1]).split("/")[1:])  # If we want file names with it.
 
