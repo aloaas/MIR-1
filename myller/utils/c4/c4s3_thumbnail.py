@@ -342,7 +342,7 @@ def plot_ssm_ann_optimal_path_family(S, ann, seg, Fs=1, cmap='gray_r', color_ann
         path_family, score, N)
     title = r'$\bar{\sigma}(\alpha)=%0.2f$, $\bar{\gamma}(\alpha)=%0.2f$, $\varphi(\alpha)=%0.2f$' % \
             (score_n, coverage_n, fitness)
-    cmap = matplotlib.colors.LinearSegmentedColormap.from_list("", ["#035a85", "#f6d033"])
+    cmap = matplotlib.colors.LinearSegmentedColormap.from_list("", ["#035a85", "white", "#f6d033"])
     fig, ax, im = plot_ssm_ann(S, ann, color_ann=color_ann, Fs=1, cmap=cmap,
                                figsize=figsize, fontsize=fontsize,
                                xlabel=r'$\alpha=[%d:%d]$' % (seg[0], seg[-1]), ylabel=ylabel, title=title)
