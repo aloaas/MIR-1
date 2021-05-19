@@ -57,6 +57,9 @@ if length in range(1, 31):
             if os.path.isfile(path_myller_wav):
                 st.audio(path_myller_wav)
 
+            if os.path.isfile(path_myller_wav):
+                os.remove(path_myller_wav)
+
 
         if analyte is not None and analyte == "Attention" or analyte == "Both":
             path_neural_wav = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_audio.wav'.format(name)
@@ -66,6 +69,9 @@ if length in range(1, 31):
 
             if os.path.isfile(path_neural_wav):
                 st.audio(path_neural_wav)
+
+            if os.path.isfile(path_neural_wav):
+                os.remove(path_neural_wav)
 
 
 
