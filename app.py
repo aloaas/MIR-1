@@ -67,15 +67,15 @@ if length in range(1, 31):
                 pmhe.extract([uploaded_file.name], name=name, length=length, save_score=True, save_thumbnail=True, save_wav=True, st=st)
                 st.success("Attention Success!")
 
-        #     if os.path.isfile(path_neural_wav):
-        #         st.audio(path_neural_wav)
-        #
-        #     if os.path.isfile(path_neural_wav):
-        #         os.remove(path_neural_wav)
-        #
-        #
-        # if os.path.isfile(uploaded_file_path):
-        #    os.remove(uploaded_file_path)
+            if os.path.isfile(path_neural_wav):
+                st.audio(path_neural_wav)
+
+            if os.path.isfile(path_neural_wav):
+                os.remove(path_neural_wav)
+
+
+        if os.path.isfile(uploaded_file_path):
+           os.remove(uploaded_file_path)
 
         #os.chdir("data")
         #files = [f for f in os.listdir('.') if os.path.isfile(f)]
