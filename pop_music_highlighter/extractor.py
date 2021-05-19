@@ -9,14 +9,22 @@ import os
 
 os.environ["CUDA_VISIBLE_DEVICES"] = ''
 
-def plot_nn(score, highlight, fig):
-    fig = plt.figure(fig)
+def plot_nn(score, highlight, y, sr):
+    d = librosa.core.get_duration(y=y, sr=sr)
+    S = librosa.feature.melspectrogram(y, sr=sr, n_fft=2048, hop_length=512, n_mels=128)
+    S_DB = librosa.power_to_db(S, ref=np.max)
+    plot = plt.Figure()
+    canvas = FigureCanvas(plot)
+    ax = plot.add_subplot(111)
+
+    hop_length = 512
+    librosa.display.specshow(S_DB, sr=sr, hop_length=hop_length, ax=ax, x_axis='time', y_axis='mel')
     plt.plot(score, label='Score')
     plt.axvline(highlight[0], color='red', label='Start of thumbnail')
     plt.axvline(highlight[1], color='red', label='End of thumbnail')
     plt.xlabel('Time (frames)')
     plt.ylabel('Score')
-    return fig
+    return plot
 
 def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save_wav=True, st=None):
     for f in fs:
@@ -29,7 +37,7 @@ def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save
 
             model.saver.restore(sess, "pop_music_highlighter" + os.path.sep + "model" + os.path.sep + "model")
 
-            audio, spectrogram, duration, mel_plot = audio_read(f)
+            audio, spectrogram, duration, mel_plot, sr = audio_read(f)
             #st.pyplot(spectrogram)
             n_chunk, remainder = np.divmod(duration, 3)
             chunk_spec = chunk(spectrogram, n_chunk)
@@ -60,7 +68,7 @@ def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save
             index = np.argmax(attn_score)
             highlight = [index, index + length]
             st.text(highlight)
-            st.pyplot(plot_nn(score, highlight, mel_plot))
+            st.pyplot(plot_nn(score, highlight, audio, sr))
             if save_thumbnail:
                 if not os.path.exists("output" + os.path.sep + "attention"):
                     os.mkdir("output" + os.path.sep + "attention")

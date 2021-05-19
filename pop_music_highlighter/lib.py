@@ -35,7 +35,7 @@ def audio_read(f):
     #plt.colorbar(format='%+2.0f dB', ax=ax)
     S = np.transpose(np.log(1+10000*S))
     S = np.expand_dims(S, axis=0)
-    return y, S, int(d), plot
+    return y, S, int(d), plot, sr
 
 
 def positional_encoding(batch_size, n_pos, d_pos):
