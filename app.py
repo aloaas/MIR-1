@@ -30,7 +30,7 @@ plt.rcParams['ytick.color'] = COLOR
 def plot_nn(score, highlight):
     score = np.load(score)
     highlight = np.load(highlight)
-    fig, ax = plt.figure(facecolor="black")
+    fig, ax = plt.subplots(facecolor="black")
     ax.plot(score, label='Score', color=COLOR)
     ax.set_facecolor('#035a85')
     ax.axvline(highlight[0], color='red', label='Start of thumbnail')
