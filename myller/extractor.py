@@ -4,6 +4,7 @@ import os
 
 import numpy as np
 from matplotlib import pyplot as plt
+import matplotlib.colors
 from numba import jit
 from .utils.c4 import compute_accumulated_score_matrix, \
     compute_optimal_path_family, \
@@ -187,8 +188,9 @@ def visualize_scape_plot(SP, Fs=1, ax=None, figsize=(4, 3), title='',
             center = start + length_minus_one//2
             SP_vis[length_minus_one, center] = SP[length_minus_one, start]
 
+    cmap = matplotlib.colors.LinearSegmentedColormap.from_list("", ["#035a85", "#f6d033"])
     extent = np.array([-0.5, (N-1)+0.5, -0.5, (N-1)+0.5])/Fs
-    im = plt.imshow(SP_vis, cmap='hot_r', aspect='auto', origin='lower', extent=extent)
+    im = plt.imshow(SP_vis, cmap=cmap, aspect='auto', origin='lower', extent=extent)
     x = np.asarray(range(N))
     x_half_lower = x/2
     x_half_upper = x/2 + N/2 - 1/2
@@ -224,7 +226,9 @@ def compute_fitness_scape_plot(S, st):
     SP_score_n = np.zeros((N, N))
     SP_coverage = np.zeros((N, N))
     SP_coverage_n = np.zeros((N, N))
-    # st.write("shapes done")
+    if st is not None:
+        st.write("shapes done")
+
     for length_minus_one in range(N):
         for start in range(N-length_minus_one):
             S_seg = S[:, start:start+length_minus_one+1]
@@ -294,21 +298,16 @@ def plot_seg_in_sp(ax, seg, S=None, Fs=1):
 def plot_sp_ssm(SP, seg, S, ann, color_ann=[], title='', figsize=(5, 4)):
     """Visulization of SP and SSM
     Notebook: C4/C4S3_ScapePlot.ipynb"""
-    float_box = FloatingBox()
     fig1, ax, im = visualize_scape_plot(SP, figsize=figsize, title=title,
                                        xlabel='Center (frames)', ylabel='Length (frames)')
     plot_seg_in_sp(ax, seg, S)
-    #float_box.add_fig(fig)
 
     penalty = np.min(S)
     cmap_penalty = colormap_penalty(penalty=penalty)
     fig2, ax, im = plot_ssm_ann_optimal_path_family(
         S, ann, seg, color_ann=color_ann, fontsize=8, cmap=cmap_penalty, figsize=(4, 4),
         ylabel='Time (frames)')
-    #float_box.add_fig(fig)
-    #float_box.show()
     return fig1, fig2
-
 
 
 def check_segment(seg, S):
@@ -396,7 +395,6 @@ def extract(fs, name=None, length=None, save_SSM=True, save_thumbnail=True, save
 
         seg = seg_max_SP(SP, length_of_seg=int(length*Fs_feature))
         fig1, fig2 = plot_sp_ssm(SP, seg, SSM, None)
-
         if st is not None:
             st.pyplot(fig1)
             st.pyplot(fig2)
