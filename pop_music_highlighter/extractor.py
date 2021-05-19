@@ -9,6 +9,14 @@ import os
 
 os.environ["CUDA_VISIBLE_DEVICES"] = ''
 
+def plot_nn(score, highlight, fig):
+    fig = plt.figure(fig.number)
+    plt.plot(score, label='Score')
+    plt.axvline(highlight[0], color='red', label='Start of thumbnail')
+    plt.axvline(highlight[1], color='red', label='End of thumbnail')
+    plt.xlabel('Time (frames)')
+    plt.ylabel('Score')
+    return fig
 
 def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save_wav=True, st=None):
     for f in fs:
@@ -37,6 +45,7 @@ def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save
 
             # score
             attn_score = attn_score / attn_score.max()
+            score = attn_score
             st.write(n_chunk)
 
             if save_score:
@@ -45,11 +54,13 @@ def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save
                 np.save('output' + os.path.sep + 'attention' + os.path.sep + '{}_score.npy'.format(name), attn_score)
 
             # thumbnail
+
             attn_score = attn_score.cumsum()
             attn_score = np.append(attn_score[length], attn_score[length:] - attn_score[:-length])
             index = np.argmax(attn_score)
             highlight = [index, index + length]
             st.text(highlight)
+            st.pyplot(plot_nn(score, highlight, mel_plot))
             if save_thumbnail:
                 if not os.path.exists("output" + os.path.sep + "attention"):
                     os.mkdir("output" + os.path.sep + "attention")
