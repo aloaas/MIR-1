@@ -73,7 +73,7 @@ if length in range(1, 31):
             if os.path.isfile(path_neural_wav):
                 os.remove(path_neural_wav)
 
-if os.path.isfile(uploaded_file_path):
-   os.remove(uploaded_file_path)
+        if os.path.isfile(uploaded_file_path):
+           os.remove(uploaded_file_path)
 
 
