@@ -188,7 +188,7 @@ def visualize_scape_plot(SP, Fs=1, ax=None, figsize=(4, 3), title='',
             center = start + length_minus_one//2
             SP_vis[length_minus_one, center] = SP[length_minus_one, start]
 
-    cmap = matplotlib.colors.LinearSegmentedColormap.from_list("", ["#035a85", "#f6d033"])
+    cmap = matplotlib.colors.LinearSegmentedColormap.from_list("", ["#035a85", "white", "#f6d033"])
     extent = np.array([-0.5, (N-1)+0.5, -0.5, (N-1)+0.5])/Fs
     im = plt.imshow(SP_vis, cmap=cmap, aspect='auto', origin='lower', extent=extent)
     x = np.asarray(range(N))
