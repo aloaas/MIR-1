@@ -17,11 +17,13 @@ from matplotlib import pyplot as plt
 Upload a .wav or .mp3 file below and get the respective audio thumbnail and self similarity matrix.
 """
 
-
+plt.rcParams['figure.facecolor'] = 'black'
+plt.rcParams['axes.facecolor']='pink'
+plt.rcParams['savefig.facecolor']='black'
 def plot_nn(score, highlight):
     score = np.load(score)
     highlight = np.load(highlight)
-    fig = plt.figure()
+    fig = plt.figure(facecolor="black")
     plt.plot(score, label='Score')
     plt.axvline(highlight[0], color='red', label='Start of thumbnail')
     plt.axvline(highlight[1], color='red', label='End of thumbnail')
