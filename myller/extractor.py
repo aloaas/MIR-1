@@ -343,7 +343,7 @@ def check_segment(seg, S):
     return path_family
 
 
-def extract(fs, name=None, length=None, save_SSM=True, save_thumbnail=True, save_wav=True, save_SP=True, output_path='output'+ os.path.sep +'repetition' + os.path.sep, st=None):
+def extract(fs, name=None, length=None, save_SSM=True, save_thumbnail=True, save_wav=True, save_SP=True, output_path='output'+os.path.sep+'repetition' + os.path.sep, st=None):
     """Prints properties of segments with regard to SSM S
 
     Args:
@@ -364,64 +364,60 @@ def extract(fs, name=None, length=None, save_SSM=True, save_thumbnail=True, save
         tempo_rel_set = compute_tempo_rel_set(0.66, 1.5, 5)
 
         penalty = -2
-        x, _, _, _, SSM, _ = compute_sm_from_filename(fn_wav,
-                                                             L=41,
-                                                             H=10,
+        x, _, _, Fs_feature, SSM, _ = compute_sm_from_filename(fn_wav,
+                                                             L=21,
+                                                             H=5,
                                                              L_smooth=12,
                                                              tempo_rel_set=tempo_rel_set,
                                                              penalty=penalty,
-                                                             thresh=0.15)
+                                                             thresh=0.15,
+                                                             limit_length=420)
 
-        limit_length = 7*60  # sec
-        if len(x) > limit_length * 22050:
-            x = x[:22050 * limit_length]
-            SSM = SSM[:limit_length, :limit_length]
-
-        # name = "".join(".".join(f.split('.')[:-1]).split("/")[1:])  # If we want file names with it.
+        if Fs_feature < 2 and st is not None:
+            st.write("Downsampled due to longer length.")
+        elif Fs_feature < 2:
+            print("Downsampled due to longer length.")
 
         # Save not normalized SSM.
-        if (not os.path.exists("output" + os.path.sep + "repetition")):
+        if not os.path.exists("output" + os.path.sep + "repetition"):
             os.mkdir("output" + os.path.sep + "repetition")
         if save_SSM:
             np.save(output_path, SSM)
+
         SSM = normalization_properties_ssm(SSM)
-        st.write("Normalization done")
+        if st is not None:
+            st.write("Normalization done")
+
         SP_all = compute_fitness_scape_plot(SSM, st)
         SP = SP_all[0]
 
-        #st.write("Scape plot done!")
-        #plt, ax, im =  visualize_scape_plot(SP)
-        #st.pyplot(plt)
+        if st is not None:
+            st.write("Scape plot done!")
 
-        seg = seg_max_SP(SP, length_of_seg=length)
+        seg = seg_max_SP(SP, length_of_seg=int(length*Fs_feature))
         fig1, fig2 = plot_sp_ssm(SP, seg, SSM, None)
-        st.pyplot(fig1)
-        st.pyplot(fig2)
-        # path_family = check_segment(seg, S)
-        st.text(seg)
+
+        if st is not None:
+            st.pyplot(fig1)
+            st.pyplot(fig2)
+            st.text(seg)
+
         if save_SSM:
             np.save(output_path+'{}_SSM_norm.npy'.format(name), SSM)
-        #st.write("SSM saved")
+
         if save_SP:
             np.save(output_path+'{}_SP.npy'.format(name), SP)
-        #st.write("SP saved")
 
         if save_thumbnail:
             np.save(output_path+'{}_seg.npy'.format(name), seg)
-        #st.write("Thumnb saved")
-
 
         if save_wav:
+            print(Fs_feature)
+            print(seg)
+            seg = [int(index / Fs_feature) for index in seg]
+            print(seg)
             librosa.output.write_wav(output_path+'{}_audio.wav'.format(name),
                                         x[seg[0] * 22050:seg[1] * 22050], 22050)
-
-        #st.write("WAV saved")
-        #st.write(output_path+'{}_audio.wav'.format(name))
-
-
-
-
-
 
 
 if __name__ == '__main__':
