@@ -77,10 +77,10 @@ if length in range(1, 31):
         # if os.path.isfile(uploaded_file_path):
         #    os.remove(uploaded_file_path)
 
-        os.chdir("data")
-        files = [f for f in os.listdir('.') if os.path.isfile(f)]
-        st.write(files)
-        st.text(files)
+        #os.chdir("data")
+        #files = [f for f in os.listdir('.') if os.path.isfile(f)]
+        #st.write(files)
+        #st.text(files)
 
         #taddf4rf
 
