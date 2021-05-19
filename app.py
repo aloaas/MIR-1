@@ -19,6 +19,8 @@ Upload a .wav or .mp3 file below and get the respective audio thumbnail and self
 
 
 def plot_nn(score, highlight):
+    score = np.load(score)
+    highlight = np.load(highlight)
     fig = plt.figure()
     plt.plot(score, label='Score')
     plt.axvline(highlight[0], color='red', label='Start of thumbnail')
@@ -77,6 +79,9 @@ if length in range(1, 31):
             score = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_score.npy'.format(name)
             highlight = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_highlight.npy'.format(name)
             path_neural_wav = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_audio.wav'.format(name)
+            print(score)
+            print(highlight)
+            print(score)
             with st.spinner("Processing attention"):
                 pmhe.extract([uploaded_file.name], name=name, length=length, save_score=True, save_thumbnail=True, save_wav=True, st=st)
                 st.success("Attention Success!")

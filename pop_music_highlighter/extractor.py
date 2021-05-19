@@ -55,7 +55,7 @@ def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save
                     os.mkdir("output" + os.path.sep + "attention")
 
                 np.save('output' + os.path.sep + 'attention' + os.path.sep + '{}_highlight.npy'.format(name), highlight)
-
+            print('output' + os.path.sep + 'attention' + os.path.sep + '{}_highlight.npy'.format(name))
             if save_wav:
                 if not os.path.exists("output" + os.path.sep + "attention"):
                     os.mkdir("output" + os.path.sep + "attention")
