@@ -16,6 +16,18 @@ from matplotlib import pyplot as plt
 # Thumbnail.me
 Upload a .wav or .mp3 file below and get the respective audio thumbnail and self similarity matrix.
 """
+
+
+def plot_nn(score, highlight):
+    fig = plt.figure()
+    plt.plot(score, label='Score')
+    plt.axvline(highlight[0], color='red', label='Start of thumbnail')
+    plt.axvline(highlight[1], color='red', label='End of thumbnail')
+    plt.xlabel('Time (frames)')
+    plt.ylabel('Score')
+    return fig
+
+
 length = None
 analyte = st.radio(
      "Pick one..",     ('None', 'Repetition', 'Attention', 'Both'))
@@ -62,10 +74,13 @@ if length in range(1, 31):
 
 
         if analyte is not None and analyte == "Attention" or analyte == "Both":
+            score = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_score.npy'.format(name)
+            highlight = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_highlight.npy'.format(name)
             path_neural_wav = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_audio.wav'.format(name)
             with st.spinner("Processing attention"):
                 pmhe.extract([uploaded_file.name], name=name, length=length, save_score=True, save_thumbnail=True, save_wav=True, st=st)
                 st.success("Attention Success!")
+            st.pyplot(plot_nn(score, highlight))
 
             if os.path.isfile(path_neural_wav):
                 st.audio(path_neural_wav)
@@ -77,10 +92,10 @@ if length in range(1, 31):
         if os.path.isfile(uploaded_file_path):
            os.remove(uploaded_file_path)
 
-        #os.chdir("data")
+        #  os.chdir("data")
         #files = [f for f in os.listdir('.') if os.path.isfile(f)]
         #st.write(files)
         #st.text(files)
-
         #taddf4rf
+
 
