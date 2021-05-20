@@ -4,7 +4,8 @@ This is a project for the music information retrieval (LTAT.02.015) course in Ta
 
 The web application is available at: https://share.streamlit.io/aloaas/mir-1/main/app.py 
 
-Requirements to run ```main.py``` or ```streamlit run app.py```.
+Requirements to run manually ```main.py``` or ```streamlit run app.py```.
+- for ```main.py``` songs can called out with ```python main.py -filename "****"
 - seperate venv
 - python 3.7
 - ```pip install -r requirements.txt```
