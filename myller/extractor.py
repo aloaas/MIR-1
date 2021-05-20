@@ -370,7 +370,7 @@ def extract(fs, name=None, length=None, save_SSM=True, save_thumbnail=True, save
                                                              tempo_rel_set=tempo_rel_set,
                                                              penalty=penalty,
                                                              thresh=0.15,
-                                                             limit_length=420)
+                                                             limit_length=240)
 
         if Fs_feature < 2 and st is not None:
             st.write("Downsampled due to longer length.")
