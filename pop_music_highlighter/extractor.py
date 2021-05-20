@@ -6,6 +6,7 @@ from .lib import *
 import tensorflow as tf
 import numpy as np
 import os
+import matplotlib.colors
 
 os.environ["CUDA_VISIBLE_DEVICES"] = ''
 COLOR = 'white'
@@ -17,14 +18,18 @@ plt.rcParams['axes.labelcolor'] = COLOR
 plt.rcParams['xtick.color'] = COLOR
 plt.rcParams['ytick.color'] = COLOR
 
+
 def plot_nn(score, highlight):
-    fig = plt.figure("1")
-    plt.plot(score, label='Score')
-    plt.axvline(highlight[0], color='red', label='Start of thumbnail')
-    plt.axvline(highlight[1], color='red', label='End of thumbnail')
-    plt.xlabel('Time (frames)')
-    plt.ylabel('Score')
+    fig, ax = plt.subplots(num="1")
+    ax.plot(score, label='Score', color='white')
+    ax.axvline(highlight[0], color='#f6d033', label='Start of thumbnail')
+    ax.axvline(highlight[1], color='#f6d033', label='End of thumbnail')
+    ax.set_xlabel('Time (frames)')
+    ax.set_ylabel('Score')
+    ax.set_facecolor("#035a85")
+    ax.axvspan(highlight[0], highlight[1], ymin=0, ymax=1, alpha=0.2, color='#f6d033')
     return fig
+
 
 def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save_wav=True, st=None):
     for f in fs:
@@ -33,12 +38,10 @@ def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save
             model = MusicHighlighter()
             sess.run(tf.global_variables_initializer())
 
-            # name = "".join(".".join(f.split('.')[:-1]).split("/")[1:])  # If we want file names with it.
-
             model.saver.restore(sess, "pop_music_highlighter" + os.path.sep + "model" + os.path.sep + "model")
 
             audio, spectrogram, duration, mel_plot, sr = audio_read(f)
-            #st.pyplot(spectrogram)
+
             n_chunk, remainder = np.divmod(duration, 3)
             chunk_spec = chunk(spectrogram, n_chunk)
             pos = positional_encoding(batch_size=1, n_pos=n_chunk, d_pos=model.dim_feature * 4)
@@ -54,7 +57,8 @@ def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save
             # score
             attn_score = attn_score / attn_score.max()
             score = attn_score
-            st.write(n_chunk)
+            if st is not None:
+                st.write(n_chunk)
 
             if save_score:
                 if not os.path.exists("output" + os.path.sep + "attention"):
@@ -67,8 +71,13 @@ def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save
             attn_score = np.append(attn_score[length], attn_score[length:] - attn_score[:-length])
             index = np.argmax(attn_score)
             highlight = [index, index + length]
-            st.text(highlight)
-            st.pyplot(plot_nn(score, highlight))
+            if st is not None:
+                st.text(highlight)
+                st.pyplot(plot_nn(score, highlight))
+            else:
+                fig = plot_nn(score, highlight)
+                fig.show()
+
             if save_thumbnail:
                 if not os.path.exists("output" + os.path.sep + "attention"):
                     os.mkdir("output" + os.path.sep + "attention")
