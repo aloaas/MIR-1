@@ -33,8 +33,8 @@ As mentioned before chorus is a vey good candidate for thumbnailing a song. But 
 - Output:
   - One or two thumbnails of predefined length
   - Repetition-based: Visualizations of SSM with optimal paths and segments
-  - Repetition-based: Visualizations of the fitness scape plot, with the top 5 segments as points.
-  - Attention-based: Visualization of chroma features and attention score with the segment highlighted
+  - Repetition-based: Visualizations of the fitness scape plot, with points at the optimal paths and segments.
+  - Attention-based: Visualization of attention score with the segment highlighted
 
 # References 
 
