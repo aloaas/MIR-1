@@ -55,7 +55,7 @@ def normalization_properties_ssm(S):
 
 
 def plot_ssm_ann(S, ann, Fs=1, cmap='gray_r', color_ann=[], ann_x=False, ann_y=False,
-                 fontsize=12, figsize=(5, 4.5), xlabel='', ylabel='', title='Self Similarity Matrix'):
+                 fontsize=12, figsize=(5, 4.5), xlabel='', ylabel='', title=''):
     """Plot SSM and annotations (horizontal and vertical as overlay)
 
     Notebook: C4/C4S3_AudioThumbnailing.ipynb
@@ -82,7 +82,7 @@ def plot_ssm_ann(S, ann, Fs=1, cmap='gray_r', color_ann=[], ann_x=False, ann_y=F
                                              xlabel='', ylabel='', title='')
     ax[0, 0].set_ylabel(ylabel)
     ax[0, 0].set_xlabel(xlabel)
-    ax[0, 0].set_title(title)
+    ax[0, 0].set_title("Self Similarity Matrix\n" + title)
     if ann_y:
         plot_segments_overlay(ann, ax=ax_im[0], direction='vertical',
                                        time_max=S.shape[0]/Fs, print_labels=False,

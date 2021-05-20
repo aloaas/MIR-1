@@ -28,7 +28,7 @@ def plot_nn(score, highlight):
     ax.set_ylabel('Score')
     ax.set_facecolor("#035a85")
     ax.axvspan(highlight[0], highlight[1], ymin=0, ymax=1, alpha=0.2, color='#f6d033')
-    ax.title("Attention Score")
+    ax.set_title("Attention Score")
     return fig
 
 
