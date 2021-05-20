@@ -24,12 +24,12 @@ As mentioned before chorus is a vey good candidate for thumbnailing a song. But 
 
 ## Web app (```app```)
 
-- Streamlit app:
+- Streamlit app flow:
   - Upload any song (any file format).
   - After upload the song can be played.
-  - Chooses one or both models
-  - Choose a predefined length
-  - Server will process the users song based on his choices
+  - Chooses one or both models;
+  - Choose a predefined length;
+  - Server will process the users song based on his choices.
 - Output:
   - One or two thumbnails of predefined length
   - Repetition-based: Visualizations of SSM with optimal paths and segments
