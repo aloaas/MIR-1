@@ -399,7 +399,7 @@ def extract(fs, name=None, length=None, save_SSM=True, save_thumbnail=True, save
         if st is not None:
             st.pyplot(fig1)
             st.pyplot(fig2)
-            st.text(seg)
+            #st.text(seg)
 
         if save_SSM:
             np.save(output_path+'{}_SSM_norm.npy'.format(name), SSM)

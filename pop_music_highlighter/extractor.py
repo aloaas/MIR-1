@@ -58,8 +58,8 @@ def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save
             # score
             attn_score = attn_score / attn_score.max()
             score = attn_score
-            if st is not None:
-                st.write(n_chunk)
+            #if st is not None:
+             #   st.write(n_chunk)
 
             if save_score:
                 if not os.path.exists("output" + os.path.sep + "attention"):
@@ -73,7 +73,7 @@ def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save
             index = np.argmax(attn_score)
             highlight = [index, index + length]
             if st is not None:
-                st.text(highlight)
+                #st.text(highlight)
                 st.pyplot(plot_nn(score, highlight))
             else:
                 fig = plot_nn(score, highlight)
