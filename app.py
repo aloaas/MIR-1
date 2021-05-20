@@ -31,7 +31,7 @@ length = None
 analyte = st.radio(
     "Pick one..", ('None', 'Repetition', 'Attention', 'Both'))
 if analyte != "None":
-    length = st.slider('How long thumbnail do you like?', 1, 31, value=0)
+    length = st.slider('How long a thumbnail would you like?', 1, 31, value=0)
 
 if length in range(1, 31):
 
@@ -52,7 +52,7 @@ if length in range(1, 31):
             path_myller_wav = 'output' + os.path.sep + 'repetition' + os.path.sep + '{}_audio.wav'.format(name)
             path_scape_plot = 'output' + os.path.sep + 'repetition' + os.path.sep + '{}_SP.npy'.format(name)
 
-            with st.spinner("Processing repetition"):
+            with st.spinner("Processing repetition..."):
                 me.extract([uploaded_file_path], name=name, length=length, st=st)
             st.success("Repetition Success!")
 
@@ -68,7 +68,7 @@ if length in range(1, 31):
             path_neural_wav = 'output' + os.path.sep + 'attention' + os.path.sep + '{}_audio.wav'.format(name)
             print(highlight)
             print(score)
-            with st.spinner("Processing attention"):
+            with st.spinner("Processing attention..."):
                 pmhe.extract([uploaded_file.name], name=name, length=length, save_score=True, save_thumbnail=True,
                              save_wav=True, st=st)
                 st.success("Attention Success!")

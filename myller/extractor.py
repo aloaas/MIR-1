@@ -202,6 +202,7 @@ def visualize_scape_plot(SP, Fs=1, ax=None, figsize=(4, 3), title='',
     ax.set_title(title)
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
+    plt.title("Scape Plot")
     plt.tight_layout()
     plt.colorbar(im, ax=ax)
     return fig, ax, im
@@ -227,7 +228,7 @@ def compute_fitness_scape_plot(S, st):
     SP_coverage = np.zeros((N, N))
     SP_coverage_n = np.zeros((N, N))
     if st is not None:
-        st.write("shapes done")
+        st.write("Shapes done!")
 
     for length_minus_one in range(N):
         for start in range(N-length_minus_one):
@@ -385,7 +386,7 @@ def extract(fs, name=None, length=None, save_SSM=True, save_thumbnail=True, save
 
         SSM = normalization_properties_ssm(SSM)
         if st is not None:
-            st.write("Normalization done")
+            st.write("Normalization done!")
 
         SP_all = compute_fitness_scape_plot(SSM, st)
         SP = SP_all[0]

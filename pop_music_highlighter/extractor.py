@@ -24,6 +24,7 @@ def plot_nn(score, highlight):
     plt.axvline(highlight[1], color='red', label='End of thumbnail')
     plt.xlabel('Time (frames)')
     plt.ylabel('Score')
+    plt.title("Attention Score")
     return fig
 
 def extract(fs, name=None, length=30, save_score=True, save_thumbnail=True, save_wav=True, st=None):
